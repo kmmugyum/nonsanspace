@@ -8,12 +8,16 @@
     <script src="main.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Nanum+Myeongjo&display=swap" rel="stylesheet">
     <style>
         /* Custom styles for the Inter font and overall aesthetic */
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Nanum Gothic', sans-serif;
             background-color: #FFF8F0; /* 배경색: 60% */
             color: #5C4430; /* 텍스트/테두리: 10% */
+        }
+        h1, h2, h3, h4, h5 {
+            font-family: 'Nanum Myeongjo', serif;
         }
         .text-dark-brown {
             color: #5C4430;
@@ -84,8 +88,7 @@
             <div class="bg-FFF8F0 p-6 rounded-xl shadow-md border border-dark-brown mb-8">
                 <h3 class="text-2xl font-semibold text-dark-brown mb-4">어떻게 예약하시겠어요?</h3>
                 <p class="text-dark-brown mb-4">
-                    저희는 에어비앤비에서도 예약이 가능하지만,
-                    **여기서 직접 예약하시면 수수료 없이 <span class="font-bold text-terracotta">10% 더 저렴하게</span> 이용하실 수 있습니다!**
+                    직접 예약하시면 수수료 없이 10% 더 저렴하게 이용하실 수 있습니다!
                 </p>
 
                 <a href="https://airbnb.com/healingspace"
@@ -119,11 +122,11 @@
 
         <section class="w-full max-w-4xl px-4 py-8 bg-FFF8F0 rounded-xl shadow-inner border border-dark-brown">
             <h2 class="text-4xl font-bold text-dark-brown mb-8 text-center">숙소 특징</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-center">
                 <div class="bg-FFF8F0 p-6 rounded-xl shadow-md border border-dark-brown">
                     <img src="https://placehold.co/600x400/A97155/FFF8F0?text=조용한+시골+마을" alt="조용한 시골 마을" class="w-full h-48 object-cover rounded-lg mb-4 shadow-sm">
                     <h3 class="text-2xl font-semibold text-dark-brown mb-2">조용한 시골 마을</h3>
-                    <p class="text-dark-brown">민가가 없어 자유로운 대화나 음악 감상이 가능합니다.</p>
+                    <p class="text-dark-brown">주변에 민가가 없어, 자유롭게 대화하거나 음악을 감상하실 수 있습니다.</p>
                 </div>
                 <div class="bg-FFF8F0 p-6 rounded-xl shadow-md border border-dark-brown">
                     <img src="https://placehold.co/600x400/A97155/FFF8F0?text=가족+또는+MT에+적합" alt="가족 또는 MT에 적합" class="w-full h-48 object-cover rounded-lg mb-4 shadow-sm">
@@ -131,31 +134,31 @@
                     <p class="text-dark-brown">넓은 공간과 편의 시설로 단체 숙박에 최적입니다.</p>
                 </div>
                 <div class="bg-FFF8F0 p-6 rounded-xl shadow-md border border-dark-brown">
-                    <img src="https://placehold.co/600x400/A97155/FFF8F0?text=실내+완비" alt="예전 주거용 주택 (실내 완비)" class="w-full h-48 object-cover rounded-lg mb-4 shadow-sm">
-                    <h3 class="text-2xl font-semibold text-dark-brown mb-2">예전 주거용 주택 (실내 완비)</h3>
-                    <p class="text-dark-brown">옛 정취가 느껴지는 아늑한 실내 공간이 완비되어 있습니다.</p>
-                </div>
-                <div class="bg-FFF8F0 p-6 rounded-xl shadow-md border border-dark-brown">
                     <img src="https://placehold.co/600x400/A97155/FFF8F0?text=넓은+평상+및+테라스" alt="넓은 평상 (BBQ 가능), 테라스 있음" class="w-full h-48 object-cover rounded-lg mb-4 shadow-sm">
                     <h3 class="text-2xl font-semibold text-dark-brown mb-2">넓은 평상 (BBQ 가능) & 테라스</h3>
                     <p class="text-dark-brown">야외 활동을 즐길 수 있는 넓은 평상과 테라스가 마련되어 있습니다.</p>
-                </div>
-                <div class="bg-FFF8F0 p-6 rounded-xl shadow-md border border-dark-brown">
-                    <img src="https://placehold.co/600x400/A97155/FFF8F0?text=농촌+체험+가능" alt="앞마당에서 농촌 체험 가능" class="w-full h-48 object-cover rounded-lg mb-4 shadow-sm">
-                    <h3 class="text-2xl font-semibold text-dark-brown mb-2">앞마당에서 농촌 체험 가능</h3>
-                    <p class="text-dark-brown">자연 속에서 특별한 농촌 체험을 경험해 보세요.</p>
                 </div>
                 <div class="bg-FFF8F0 p-6 rounded-xl shadow-md border border-dark-brown">
                     <img src="https://placehold.co/600x400/A97155/FFF8F0?text=넓은+주차+공간" alt="넓은 주차 공간" class="w-full h-48 object-cover rounded-lg mb-4 shadow-sm">
                     <h3 class="text-2xl font-semibold text-dark-brown mb-2">넓은 주차 공간</h3>
                     <p class="text-dark-brown">차량 3~4대까지 넉넉하게 주차 가능합니다.</p>
                 </div>
+                <div class="bg-FFF8F0 p-6 rounded-xl shadow-md border border-dark-brown">
+                    <img src="https://placehold.co/600x400/A97155/FFF8F0?text=실내+완비" alt="예전 주거용 주택 (실내 완비)" class="w-full h-48 object-cover rounded-lg mb-4 shadow-sm">
+                    <h3 class="text-2xl font-semibold text-dark-brown mb-2">예전 주거용 주택 (실내 완비)</h3>
+                    <p class="text-dark-brown">옛 정취가 느껴지는 아늑한 실내 공간이 완비되어 있습니다.</p>
+                </div>
+                <div class="bg-FFF8F0 p-6 rounded-xl shadow-md border border-dark-brown">
+                    <img src="https://placehold.co/600x400/A97155/FFF8F0?text=농촌+체험+가능" alt="앞마당에서 농촌 체험 가능" class="w-full h-48 object-cover rounded-lg mb-4 shadow-sm">
+                    <h3 class="text-2xl font-semibold text-dark-brown mb-2">앞마당에서 농촌 체험 가능</h3>
+                    <p class="text-dark-brown">자연 속에서 특별한 농촌 체험을 경험해 보세요.</p>
+                </div>
             </div>
         </section>
 
         <section class="w-full max-w-4xl px-4 py-8 mt-12 bg-FFF8F0 rounded-xl shadow-inner border border-dark-brown">
             <h2 class="text-4xl font-bold text-dark-brown mb-8 text-center">주변 관광지</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-center">
                 <div class="bg-FFF8F0 p-6 rounded-xl shadow-md border border-dark-brown">
                     <img src="./images/탑정호 출렁다리.jpg" alt="탑정호 출렁다리" class="w-full h-48 object-cover rounded-lg mb-4 shadow-sm">
                     <h3 class="text-2xl font-semibold text-dark-brown mb-2">탑정호 출렁다리</h3>
