@@ -3,10 +3,9 @@ import { db } from "./firebaseConfig.js";
 import { ref, push, onValue } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
 import { initCalendar } from "./initCalender.js";
 
-const disabledDates = [];
-
 onValue(ref(db, 'reservations'), (snapshot) => {
   const reservations = snapshot.val();
+  const disabledDates = [];
   if (reservations) {
     Object.values(reservations).forEach(reservation => {
       const checkIn = new Date(reservation.checkIn);
