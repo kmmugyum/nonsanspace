@@ -22,7 +22,7 @@ const auth = getAuth(app);
 const db = getDatabase(app);
 const provider = new GoogleAuthProvider();
 
-const ADMIN_EMAIL = "small51710753@gmail.com";
+const ADMIN_EMAIL = import.meta.env.VITE_ADMIN_EMAIL;
 
 document.addEventListener("DOMContentLoaded", () => {
   const loginBtn = document.getElementById("google-login");
