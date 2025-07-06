@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
                       <div class="text-sm text-gray-500">${data.phone}</div>
                     </div>
                     <div class="text-sm text-gray-700 mb-1">
-                      <b>📅 일정:</b> ${data.checkIn} ~ ${data.checkOut} (${data.nights}박)
+                      <b>📅 일정:</b> ${data.checkIn} ~ ${data.checkOut} (${data.nights}박 ${data.nights+1}일)
                     </div>
                     <div class="text-sm text-gray-700 mb-1">
                       <b>📝 요청사항:</b> ${data.message || "없음"}
@@ -87,6 +87,39 @@ document.addEventListener("DOMContentLoaded", () => {
                   const newStatus = e.target.checked ? "confirmed" : "pending";
                   update(ref(db, `reservations/${id}`), { status: newStatus });
                 });
+
+            const toggleCheckbox = card.querySelector(".toggle-checkbox");
+const dot = card.querySelector(".dot");
+const bg = card.querySelector(".toggle-bg");
+
+// ✅ 초기 상태 반영
+if (toggleCheckbox.checked) {
+  dot.classList.add("translate-x-5");
+  bg.classList.remove("bg-gray-300", "bg-red-500");
+  bg.classList.add("bg-green-500");
+} else {
+  bg.classList.remove("bg-gray-300", "bg-green-500");
+  bg.classList.add("bg-red-500");
+}
+
+toggleCheckbox.addEventListener("change", (e) => {
+  const newStatus = e.target.checked ? "confirmed" : "pending";
+
+  // Firebase 업데이트
+  update(ref(db, `reservations/${id}`), { status: newStatus });
+
+  // ✅ UI 변경
+  dot.classList.toggle("translate-x-5");
+
+  // ✅ 토글 배경 색상 전환
+  if (e.target.checked) {
+    bg.classList.remove("bg-gray-300", "bg-red-500");
+    bg.classList.add("bg-green-500");
+  } else {
+    bg.classList.remove("bg-gray-300", "bg-green-500");
+    bg.classList.add("bg-red-500");
+  }
+});
 
                 listContainer.appendChild(card);
               });
