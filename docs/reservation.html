@@ -56,15 +56,19 @@
 
   <!-- 달력 -->
   <div class="flex flex-col items-center mb-6">
-    <label class="font-semibold mb-2">체크인 ~ 체크아웃 날짜를 선택해주세요</label>
+  <label class="font-semibold mb-2">체크인 ~ 체크아웃 날짜를 선택해주세요</label>
+  
+  <div class="flex items-center gap-3 w-full max-w-md">
     <input
       type="text"
       id="range-calendar"
       name="booking-dates"
-      class="w-full max-w-md px-4 py-2 border border-[#5C4430] rounded bg-white text-center font-semibold"
+      class="flex-1 px-4 py-2 border border-[#5C4430] rounded bg-white text-center font-semibold"
       placeholder="날짜를 선택해주세요"
     />
+    <span id="nights-info" class="text-sm font-semibold text-[#5C4430] whitespace-nowrap"></span>
   </div>
+</div>
 
   <!-- 예약 폼 -->
   <form
@@ -124,6 +128,7 @@
         onChange: function (selectedDates, dateStr, instance) {
           const checkIn = selectedDates[0];
           const checkOut = selectedDates[1];
+          const nightsInfo = document.getElementById("nights-info");
 
           if (checkIn && checkOut && checkIn.getTime() === checkOut.getTime()) {
             alert("체크인과 체크아웃 날짜는 같을 수 없습니다. 다시 선택해주세요.");
@@ -133,6 +138,14 @@
           }
 
           document.getElementById("selected-range").value = dateStr;
+
+          if (checkIn && checkOut) {
+            const timeDiff = checkOut.getTime() - checkIn.getTime();
+            const nights = timeDiff / (1000 * 60 * 60 * 24);
+            nightsInfo.textContent = `${nights}박 ${nights + 1}일`;
+          } else {
+            nightsInfo.textContent = "";
+          }
         }
       });
 
