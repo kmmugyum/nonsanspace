@@ -32,13 +32,8 @@
             top: 0;
             left: 0;
             width: 100%;
-            z-index: 50; /* Ensure it's above other content */
+            z-index: 50;
             transition: all 0.3s ease-in-out;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            padding-top: 0.75rem; /* py-3 */
-            padding-bottom: 0.75rem; /* py-3 */
-            background-color: #D67D3E; /* Explicitly set background for fixed state */
-            color: #FFF8F0; /* Explicitly set text color for fixed state */
         }
         /* Original button styles (to ensure it reverts correctly) */
         .original-button {
@@ -62,16 +57,17 @@
 
         <!-- Main Image Section -->
         <section class="w-full max-w-3xl mb-8">
-            <img src="./public/images/시골 사진.jpg"
+            <img src="./images/시골 사진.jpg"
                  alt="HealingSpace 대표 이미지" class="w-full h-auto rounded-xl shadow-lg">
         </section>
 
         <!-- Booking Button Section -->
-        <section id="booking-button-section" class="w-full max-w-2xl text-center mb-12">
-            <a href="https://airbnb.com/healingspace" target="_blank" rel="noopener noreferrer"
-               id="booking-button"
-               class="inline-block bg-terracotta text-FFF8F0 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-opacity-90 transition-colors duration-300 text-xl original-button">
-                예약하기
+         <section id="booking-button-section" class="w-full max-w-2xl text-center mb-12">
+            <a href="https://airbnb.com/healingspace"
+            target="_blank" rel="noopener noreferrer"
+            id="booking-button"
+            class="inline-block font-bold py-3 px-8 rounded-full shadow-lg hover:bg-opacity-90 transition-colors duration-300 text-xl bg-[#D67D3E] text-[#FFF8F0]">
+            예약하기
             </a>
         </section>
 
@@ -143,6 +139,15 @@
             </div>
         </section>
 
+        
+        <section class="w-full mt-12 max-w-4xl px-4 py-8 bg-FFF8F0 rounded-xl shadow-inner border border-dark-brown mb-24">
+            <h2 class="text-4xl font-bold text-dark-brown mb-8 text-center">참고 정보</h2>
+            <div class="text-lg text-dark-brown leading-relaxed max-w-3xl mx-auto">
+                <p class="mb-4">HealingSpace는 논산훈련소에서 차량으로 약 30분 거리에 위치해 있어, 입영 전날 부모님과 함께 조용히 머물 수 있는 숙소로도 적합합니다. 시끄럽지 않고 편안한 분위기 속에서 마지막 하루를 보내고 싶은 가족에게 추천드립니다.</p>
+            </div>
+        </section>
+
+
         <!-- Transportation & Contact Section -->
         <!--<section class="w-full max-w-4xl px-4 py-8 mt-12 bg-FFF8F0 rounded-xl shadow-inner border border-dark-brown mb-12">
             <h2 class="text-4xl font-bold text-dark-brown mb-8 text-center">오시는 길 & 연락처</h2>
@@ -167,25 +172,18 @@
             const bookingButtonSection = document.getElementById('booking-button-section');
             let originalBookingButtonOffsetTop = bookingButtonSection.offsetTop;
 
-            // Function to update the offsetTop if the layout changes (e.g., on resize)
             function updateOffset() {
                 originalBookingButtonOffsetTop = bookingButtonSection.offsetTop;
             }
 
-            // Initial update and on window resize
             updateOffset();
             window.addEventListener('resize', updateOffset);
 
             window.addEventListener('scroll', function() {
-                // Check if the current scroll position is past the original position of the button section
                 if (window.scrollY > originalBookingButtonOffsetTop) {
-                    // If scrolled past, add fixed positioning classes and ensure background is solid
                     bookingButton.classList.add('fixed-button');
-                    bookingButton.classList.remove('original-button');
                 } else {
-                    // If scrolled back up, remove fixed positioning classes and restore original
                     bookingButton.classList.remove('fixed-button');
-                    bookingButton.classList.add('original-button');
                 }
             });
         });
