@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
       timestamp: Date.now()
     })
     .then(() => {
-
+      alert("예약 요청이 성공적으로 저장되었습니다!");
       // 입력 초기화
       form.reset();
       document.getElementById("selected-range").value = "";
