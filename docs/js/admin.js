@@ -22,7 +22,7 @@ const auth = getAuth(app);
 const db = getDatabase(app);
 const provider = new GoogleAuthProvider();
 
-const ADMIN_EMAIL = import.meta.env.VITE_ADMIN_EMAIL;
+const ADMIN_EMAIL = atob("c21hbGw1MTcxMDc1M0BnbWFpbC5jb20="); // base64 디코딩
 
 document.addEventListener("DOMContentLoaded", () => {
   const loginBtn = document.getElementById("google-login");
