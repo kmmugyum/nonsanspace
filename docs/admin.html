@@ -1,0 +1,24 @@
+<head>
+  <meta charset="UTF-8" />
+  <title>HealingSpace 관리자</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- ✅ Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<!-- 관리자 로그인 -->
+<div id="admin-login" class="text-center mt-20">
+  <h2 class="text-2xl font-semibold mb-6">관리자 로그인</h2>
+  <button id="google-login" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg shadow">
+    Google 계정으로 로그인
+  </button>
+</div>
+
+<!-- 관리자 패널 -->
+<div id="admin-panel" class="hidden mt-10 px-6 max-w-3xl mx-auto">
+  <h2 class="text-2xl font-bold mb-6 text-center">📋 예약 목록</h2>
+  <div id="reservation-list" class="space-y-6"></div>
+</div>
+
+<script type="module" src="./js/admin.js"></script>

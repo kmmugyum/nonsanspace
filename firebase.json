@@ -2,18 +2,19 @@
   "database": {
     "rules": "database.rules.json"
   },
-  "rewrites": [
-    {
-      "source": "**",
-      "destination": "/index.html"
-    }
-  ],
   "hosting": {
     "public": "docs",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "redirects": [
+      {
+        "source": "/adminLogin.html",
+        "destination": "/admin.html",
+        "type": 301
+      }
     ]
-  }
-}  
+  } 
+}
