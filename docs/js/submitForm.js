@@ -20,7 +20,10 @@ onValue(ref(db, 'reservations'), (snapshot) => {
       }
     });
   }
-  initCalendar(disabledDates);
+  setTimeout(() => {
+        initCalendar(disabledDates);
+        console.log("initCalendar called with disabledDates after delay."); // 디버깅용 로그
+    }, 50); // 50밀리초 지연
 });
 
 document.addEventListener("DOMContentLoaded", () => {
