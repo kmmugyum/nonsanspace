@@ -8,66 +8,7 @@
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
-  <script type="module">
-    // Firebase SDK를 가져옵니다.
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-analytics.js";
-  import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyA_x42u5N0cgcL4UZg72eWHho5oi3Nx1Tw",
-    authDomain: "healing-space-22fcc.firebaseapp.com",
-    databaseURL: "https://healing-space-22fcc-default-rtdb.firebaseio.com",
-    projectId: "healing-space-22fcc",
-    storageBucket: "healing-space-22fcc.firebasestorage.app",
-    messagingSenderId: "748135616885",
-    appId: "1:748135616885:web:b35bc65e64b618ad3b033c",
-    measurementId: "G-P9KXE942CF"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-  const db = getDatabase(app);  // ← 꼭 필요함
-
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('booking-form');
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const name = form.querySelector('input[name="name"]').value;
-    const phone = form.querySelector('input[name="phone"]').value;
-    const message = form.querySelector('textarea[name="message"]').value;
-    const dateRange = document.getElementById('selected-range').value; // 예: "2025-07-10 to 2025-07-12"
-
-    // 날짜 파싱
-    const [checkIn, checkOut] = dateRange.split(" to ");
-    const date1 = new Date(checkIn);
-    const date2 = new Date(checkOut);
-    const nights = Math.round((date2 - date1) / (1000 * 60 * 60 * 24));
-
-    // Firebase에 push
-    push(ref(db, "reservations"), {
-      name,
-      phone,
-      checkIn,
-      checkOut,
-      nights,
-      message,
-      timestamp: Date.now()
-    }).then(() => {
-        alert("예약이 완료되었습니다!");
-        form.reset();
-        document.getElementById("selected-range").value = "";
-        document.getElementById("nights-info").textContent = "";
-      })
-      .catch((error) => {
-        console.error("Firebase 저장 오류:", error);
-        alert("예약 중 오류가 발생했습니다.");
-      });
-  });
-});
-</script>
+  <script type="module" src="./js/submitForm.js"></script>
 </head>
 <body class="bg-[#FFF8F0] text-[#5C4430] p-6">
   <h1 class="text-3xl font-bold text-center mb-6">HealingSpace 예약</h1>
@@ -91,7 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   <!-- 예약 폼 -->
   <form id="booking-form" class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md space-y-4">
-
   <!-- 이름 -->
   <div>
     <label for="name" class="block font-semibold mb-1">이름</label>
@@ -138,6 +78,10 @@ document.addEventListener('DOMContentLoaded', () => {
     예약 요청 보내기
   </button>
 </form>
+
+<!-- 결과 메시지 표시용 박스 -->
+<div id="result-box" class="mt-6"></div>
+
 
 
   <!-- ✅ flatpickr 달력만 작동 -->
