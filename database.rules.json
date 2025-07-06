@@ -1,6 +1,6 @@
 {
   "rules": {
-    ".read": "auth != null && auth.token.email == 'small51710753@gmail.com'",
-    ".write": "auth != null && auth.token.email == 'small51710753@gmail.com'"
+    ".read": "true",
+    ".write": "true"
   }
 }
