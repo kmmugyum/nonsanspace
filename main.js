@@ -43,18 +43,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // Fixed booking button on scroll
-    if (bookingButtonSection && bookingButton) {
+    if (bookingButtonSection || bookingButton) {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
+                    // bookingButtonSection이 화면에 보일 때: 원래 버튼 스타일로 복원
                     bookingButton.classList.remove('fixed-button');
-                    bookingButton.classList.add('original-button');
+                    // Airbnb 버튼의 원래 Tailwind 클래스들을 추가합니다.
+                    bookingButton.classList.add('inline-block');
                 } else {
+                    // bookingButtonSection이 화면에서 사라질 때: 고정된 버튼 스타일 적용
                     bookingButton.classList.add('fixed-button');
-                    bookingButton.classList.remove('original-button');
+                    // 원래 버튼 스타일 클래스들을 제거합니다. (mb-4는 고정 시 필요 없음)
+                    bookingButton.classList.remove('inline-block');
                 }
             });
-        }, { threshold: 0 }); // Observe when the section is not visible at all
+        }, { threshold: 0 }); // bookingButtonSection이 완전히 화면 밖으로 나갔을 때 고정
 
         observer.observe(bookingButtonSection);
     }
