@@ -8,6 +8,7 @@ export function initCalendar(disabledDates) {
     inline: false,
     altInput: true,
     disable: disabledDates,
+    disableMobile: true,
     onChange: function (selectedDates, dateStr, instance) {
       const checkIn = selectedDates[0];
       const checkOut = selectedDates[1];
