@@ -81,45 +81,5 @@
 
 <!-- 결과 메시지 표시용 박스 -->
 <div id="result-box" class="mt-6"></div>
-
-
-
-  <!-- ✅ flatpickr 달력만 작동 -->
-  <script>
-    let flatpickrInstance;
-
-    window.addEventListener("DOMContentLoaded", () => {
-      flatpickrInstance = flatpickr("#range-calendar", {
-        locale: "ko",
-        mode: "range",
-        minDate: "today",
-        dateFormat: "Y-m-d",
-        inline: false,
-        altInput: true,
-        onChange: function (selectedDates, dateStr, instance) {
-          const checkIn = selectedDates[0];
-          const checkOut = selectedDates[1];
-          const nightsInfo = document.getElementById("nights-info");
-
-          if (checkIn && checkOut && checkIn.getTime() === checkOut.getTime()) {
-            alert("체크인과 체크아웃 날짜는 같을 수 없습니다. 다시 선택해주세요.");
-            instance.clear();
-            document.getElementById("selected-range").value = "";
-            return;
-          }
-
-          document.getElementById("selected-range").value = dateStr;
-
-          if (checkIn && checkOut) {
-            const timeDiff = checkOut.getTime() - checkIn.getTime();
-            const nights = timeDiff / (1000 * 60 * 60 * 24);
-            nightsInfo.textContent = `${nights}박 ${nights + 1}일`;
-          } else {
-            nightsInfo.textContent = "";
-          }
-        }
-      });
-    });
-  </script>
 </body>
 </html>
