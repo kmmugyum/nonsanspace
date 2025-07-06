@@ -8,6 +8,48 @@
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+  <script type="module">
+    // Firebase SDK를 가져옵니다.
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-analytics.js";
+  
+  const firebaseConfig = {
+    apiKey: "AIzaSyA_x42u5N0cgcL4UZg72eWHho5oi3Nx1Tw",
+    authDomain: "healing-space-22fcc.firebaseapp.com",
+    databaseURL: "https://healing-space-22fcc-default-rtdb.firebaseio.com",
+    projectId: "healing-space-22fcc",
+    storageBucket: "healing-space-22fcc.firebasestorage.app",
+    messagingSenderId: "748135616885",
+    appId: "1:748135616885:web:b35bc65e64b618ad3b033c",
+    measurementId: "G-P9KXE942CF"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+
+  document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('booking-form');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault(); // 새로고침 방지
+
+        const name = document.getElementById('name').value;
+        const date = document.getElementById('date').value;
+
+        // Firebase에 저장
+        push(ref(db, 'reservations'), {
+          name: name,
+          date: date,
+          timestamp: Date.now()
+        }).then(() => {
+          alert('예약이 완료되었습니다!');
+          form.reset();
+        }).catch((error) => {
+          console.error(error);
+          alert('예약 중 오류가 발생했습니다.');
+        });
+      });
+    });
+</script>
 </head>
 <body class="bg-[#FFF8F0] text-[#5C4430] p-6">
   <h1 class="text-3xl font-bold text-center mb-6">HealingSpace 예약</h1>
@@ -102,28 +144,4 @@
     });
   </script>
 </body>
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyA_x42u5N0cgcL4UZg72eWHho5oi3Nx1Tw",
-    authDomain: "healing-space-22fcc.firebaseapp.com",
-    databaseURL: "https://healing-space-22fcc-default-rtdb.firebaseio.com",
-    projectId: "healing-space-22fcc",
-    storageBucket: "healing-space-22fcc.firebasestorage.app",
-    messagingSenderId: "748135616885",
-    appId: "1:748135616885:web:b35bc65e64b618ad3b033c",
-    measurementId: "G-P9KXE942CF"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
 </html>
