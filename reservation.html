@@ -5,9 +5,9 @@
   <title>HealingSpace 예약</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/ko.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
 </head>
 <body class="bg-[#FFF8F0] text-[#5C4430] p-6">
   <h1 class="text-3xl font-bold text-center mb-6">HealingSpace 예약</h1>
@@ -21,15 +21,12 @@
       name="booking-dates"
       class="w-full max-w-md px-4 py-2 border border-[#5C4430] rounded bg-white text-center font-semibold"
       placeholder="날짜를 선택해주세요"
-      readonly
     />
   </div>
 
   <!-- 예약 폼 -->
   <form
     id="booking-form"
-    action="mailto:small0753@daum.net"
-    method="POST"
     class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md"
   >
     <input type="hidden" id="selected-range" name="booking-dates" required />
@@ -70,33 +67,38 @@
     </button>
   </form>
 
+  <!-- ✅ flatpickr 달력만 작동 -->
   <script>
-    const reservedDates = [
-      "2025-07-08",
-      "2025-07-11",
-      "2025-07-18"
-    ];
+    let flatpickrInstance;
 
-    flatpickr("#range-calendar", {
-  locale: "ko",
-  mode: "range",
-  minDate: "today",
-  disable: reservedDates,
-  dateFormat: "Y-m-d",
-  onChange: function (selectedDates, dateStr, instance) {
-        const checkIn = selectedDates[0];
-        const checkOut = selectedDates[1];
+    window.addEventListener("DOMContentLoaded", () => {
+      flatpickrInstance = flatpickr("#range-calendar", {
+        locale: "ko",
+        mode: "range",
+        minDate: "today",
+        dateFormat: "Y-m-d",
+        inline: false,
+        altInput: true,
+        onChange: function (selectedDates, dateStr, instance) {
+          const checkIn = selectedDates[0];
+          const checkOut = selectedDates[1];
 
-        if (checkIn && checkOut && checkIn.getTime() === checkOut.getTime()) {
-        alert("체크인과 체크아웃 날짜는 같을 수 없습니다. 다시 선택해주세요.");
-        instance.clear(); // 달력 입력 초기화
-        document.getElementById("selected-range").value = "";
-        return;
+          if (checkIn && checkOut && checkIn.getTime() === checkOut.getTime()) {
+            alert("체크인과 체크아웃 날짜는 같을 수 없습니다. 다시 선택해주세요.");
+            instance.clear();
+            document.getElementById("selected-range").value = "";
+            return;
+          }
+
+          document.getElementById("selected-range").value = dateStr;
         }
+      });
 
-        // 정상 입력인 경우
-        document.getElementById("selected-range").value = dateStr;
-    }
+      // submit 동작 테스트용 (실제 저장은 작동안함)
+      document.getElementById("booking-form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        alert("예약 요청 테스트 완료 (Firebase 미연동)");
+      });
     });
   </script>
 </body>
