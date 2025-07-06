@@ -20,13 +20,10 @@ onValue(ref(db, 'reservations'), (snapshot) => {
       }
     });
   }
-  setTimeout(() => {
-        initCalendar(disabledDates);
-        console.log("initCalendar called with disabledDates after delay."); // 디버깅용 로그
-    }, 50); // 50밀리초 지연
+    initCalendar(disabledDates);
 });
 
-document.addEventListener("load", () => {
+document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("booking-form");
 
   form.addEventListener("submit", (e) => {
