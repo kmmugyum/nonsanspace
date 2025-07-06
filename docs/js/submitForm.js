@@ -26,7 +26,7 @@ onValue(ref(db, 'reservations'), (snapshot) => {
     }, 50); // 50밀리초 지연
 });
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("load", () => {
   const form = document.getElementById("booking-form");
 
   form.addEventListener("submit", (e) => {
