@@ -162,5 +162,32 @@
             </div>
         </section>
 
+        <div id="popup-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-[#FFF8F0] rounded-xl shadow-xl p-6 max-w-md w-full relative">
+            <button id="close-reservation" class="absolute top-2 right-3 text-xl">✕</button>
+            <h2 class="text-2xl font-bold text-dark-brown mb-4 text-center">직접 예약 요청</h2>
+            <form action="mailto:small0753@daum.net" method="POST" enctype="text/plain" class="space-y-4">
+                <div>
+                    <label for="name" class="block font-semibold mb-1 text-dark-brown">이름</label>
+                    <input type="text" id="name" name="name" required class="w-full px-3 py-2 border border-dark-brown rounded-md">
+                </div>
+                <div>
+                    <label for="email" class="block font-semibold mb-1 text-dark-brown">이메일</label>
+                    <input type="email" id="email" name="email" required class="w-full px-3 py-2 border border-dark-brown rounded-md">
+                </div>
+                <div>
+                    <label for="phone" class="block font-semibold mb-1 text-dark-brown">연락처</label>
+                    <input type="tel" id="phone" name="phone" required class="w-full px-3 py-2 border border-dark-brown rounded-md">
+                </div>
+                <div>
+                    <label for="message" class="block font-semibold mb-1 text-dark-brown">요청 사항</label>
+                    <textarea id="message" name="message" rows="4" class="w-full px-3 py-2 border border-dark-brown rounded-md"></textarea>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="bg-terracotta text-[#FFF8F0] px-6 py-2 rounded-full font-bold shadow hover:bg-opacity-90 transition">예약 요청 보내기</button>
+                </div>
+                <p class="text-sm text-light-brown text-center">※ 예약 요청 후 1일 이내에 연락드릴게요.</p>
+            </form>
+        </div>
     </div>
 </html>
