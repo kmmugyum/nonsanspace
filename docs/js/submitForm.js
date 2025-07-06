@@ -49,23 +49,33 @@ document.addEventListener("DOMContentLoaded", () => {
       message,
       status: "pending",
       timestamp: Date.now()
-    }).then(() => {
-      alert("예약이 완료되었습니다!");
+    })
+    .then(() => {
+
+      // 입력 초기화
       form.reset();
       document.getElementById("selected-range").value = "";
       document.getElementById("nights-info").textContent = "";
-      document.getElementById("result-box").innerHTML = `
+
+      // 결과 메시지 표시
+      const resultBox = document.getElementById("result-box");
+      resultBox.innerHTML = `
         <div class="mt-4 bg-white p-4 rounded shadow text-center text-[#5C4430]">
           <p class="font-bold text-lg">예약 요청이 완료되었습니다!</p>
           <p class="mt-2 text-sm">
             예약 확정을 위해 아래 계좌로 입금해주세요.<br/>
-            💸 <b>토스뱅크</b> 김무겸 1000-1234-5678<br/>
-            💸 <b>카카오뱅크</b> 김무겸 3333-12-3456789<br/>
-            입금 확인 후 예약이 확정됩니다.
+            💸 <b>토스뱅크</b> 김무겸 1000-1234-5678
           </p>
         </div>
       `;
-    }).catch((err) => {
+
+      // ✅ 모바일에서도 보이도록 표시 설정
+      resultBox.style.display = "block";
+
+      // ✅ 모바일에서도 바로 보이게 자동 스크롤
+      resultBox.scrollIntoView({ behavior: "smooth" });
+    })
+    .catch((err) => {
       console.error("저장 오류", err);
       alert("예약 중 문제가 발생했습니다.");
     });
