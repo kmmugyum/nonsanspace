@@ -23,16 +23,9 @@ onValue(ref(db, 'reservations'), (snapshot) => {
     });
   }
 
-  const disabledDatesElement = document.getElementById("disabled-dates");
-  if (disabledDatesElement) {
-    disabledDatesElement.innerHTML = `
-      <h3>예약 불가 날짜:</h3>
-      <ul>
-        ${disabledDatesText.map(date => `<li>${date}</li>`).join('')}
-      </ul>
-    `;
+  if(disabledDates.length === 0) {
+    alert("현재 예약된 날짜가 없습니다. 모든 날짜를 선택할 수 있습니다.");
   }
-
     initCalendar(disabledDates);
 });
 
