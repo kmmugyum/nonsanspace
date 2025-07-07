@@ -32,6 +32,9 @@ function setupRealtimeListener() {
       });
     }
 
+    if(disabledDates.length === 0) {
+      alert("현재 예약된 날짜가 없습니다. 모든 날짜를 선택할 수 있습니다.");
+    }
     initCalendar(disabledDates);
   });
 }
