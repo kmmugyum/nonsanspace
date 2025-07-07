@@ -1,4 +1,3 @@
-// initCalendar.js
 export function initCalendar(disabledDates) {
   flatpickr("#range-calendar", {
     locale: "ko",
@@ -18,21 +17,22 @@ export function initCalendar(disabledDates) {
         alert("체크인과 체크아웃 날짜는 같을 수 없습니다.");
         instance.clear();
         document.getElementById("selected-range").value = "";
+        nightsInfo.textContent = ""; // 경고 후 날짜 정보 초기화
         return;
       }
 
-      document.getElementById("selected-range").value = dateStr;
-
       if (checkIn && checkOut) {
+        // 날짜 범위 설정
+        const formattedCheckIn = flatpickr.formatDate(checkIn, "Y-m-d");
+        const formattedCheckOut = flatpickr.formatDate(checkOut, "Y-m-d");
 
-        document.getElementById("selected-range").value =
-        flatpickr.formatDate(checkIn, "Y-m-d") +
-        "~ " +
-        flatpickr.formatDate(checkOut, "Y-m-d");
+        document.getElementById("selected-range").value = `${formattedCheckIn}~ ${formattedCheckOut}`;
 
+        // 박수 계산
         const nights = (checkOut - checkIn) / (1000 * 60 * 60 * 24);
-        nightsInfo.textContent = `${nights}박 ${nights + 1}일`;
+        nightsInfo.textContent = `${nights}박 ${nights + 1}일`;  // 1박 추가된 표현
       } else {
+        document.getElementById("selected-range").value = "";
         nightsInfo.textContent = "";
       }
     }
