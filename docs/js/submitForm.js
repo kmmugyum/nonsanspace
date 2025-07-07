@@ -7,7 +7,7 @@ onValue(ref(db, 'reservations'), (snapshot) => {
   const reservations = snapshot.val();
   const disabledDates = [];
 
-  if (!snapshot.exists()) {
+  if (!reservations || Object.keys(reservations).length === 0){
   console.warn("예약 데이터 없음");
   return;
 }
