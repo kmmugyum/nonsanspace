@@ -1,6 +1,6 @@
 // submitForm.js
 import { db } from "./firebaseConfig.js";
-import { ref, push, onValue } from "https://www.gstatic.com/firebasejs/11.15.0/firebase-database.js";
+import { ref, push, onValue } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js";
 import { initCalendar } from "./initCalender.js";
 
 onValue(ref(db, 'reservations'), (snapshot) => {
