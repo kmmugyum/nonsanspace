@@ -8,33 +8,36 @@ export function initCalendar(disabledDates) {
     altInput: true,
     disable: disabledDates,
     disableMobile: true,
+
+    
     onChange: function (selectedDates, dateStr, instance) {
-      const checkIn = selectedDates[0];
-      const checkOut = selectedDates[1];
-      const nightsInfo = document.getElementById("nights-info");
+  const nightsInfo = document.getElementById("nights-info");
+  const selectedRange = document.getElementById("selected-range");
 
-      if (checkIn && checkOut && checkIn.getTime() === checkOut.getTime()) {
-        alert("체크인과 체크아웃 날짜는 같을 수 없습니다.");
-        instance.clear();
-        document.getElementById("selected-range").value = "";
-        nightsInfo.textContent = ""; // 경고 후 날짜 정보 초기화
-        return;
-      }
+  if (!nightsInfo || !selectedRange) return;
 
-      if (checkIn && checkOut) {
-        // 날짜 범위 설정
-        const formattedCheckIn = flatpickr.formatDate(checkIn, "Y-m-d");
-        const formattedCheckOut = flatpickr.formatDate(checkOut, "Y-m-d");
+  const checkIn = selectedDates[0];
+  const checkOut = selectedDates[1];
 
-        document.getElementById("selected-range").value = `${formattedCheckIn}~ ${formattedCheckOut}`;
-
-        // 박수 계산
-        const nights = (checkOut - checkIn) / (1000 * 60 * 60 * 24);
-        nightsInfo.textContent = `${nights}박 ${nights + 1}일`;  // 1박 추가된 표현
-      } else {
-        document.getElementById("selected-range").value = "";
-        nightsInfo.textContent = "";
-      }
+  if (checkIn && checkOut) {
+    const diff = (checkOut - checkIn) / (1000 * 60 * 60 * 24);
+    if (diff === 0) {
+      alert("체크인과 체크아웃 날짜는 같을 수 없습니다.");
+      instance.clear();
+      selectedRange.value = "";
+      nightsInfo.textContent = "";
+      return;
     }
+
+    const formattedCheckIn = instance.formatDate(checkIn, "Y-m-d");
+    const formattedCheckOut = instance.formatDate(checkOut, "Y-m-d");
+
+    selectedRange.value = `${formattedCheckIn}~ ${formattedCheckOut}`;
+    nightsInfo.textContent = `${diff}박 ${diff + 1}일`;
+  } else {
+    selectedRange.value = "";
+    nightsInfo.textContent = "";
+  }
+}
   });
 }

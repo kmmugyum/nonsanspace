@@ -1,6 +1,6 @@
 // submitForm.js
 import { db } from "./firebaseConfig.js";
-import { ref, push, onValue } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
+import { ref, push, onValue } from "https://www.gstatic.com/firebasejs/11.15.0/firebase-database.js";
 import { initCalendar } from "./initCalender.js";
 
 onValue(ref(db, 'reservations'), (snapshot) => {
@@ -21,10 +21,6 @@ onValue(ref(db, 'reservations'), (snapshot) => {
         disabledDates.push(new Date(date));
       }
     });
-  }
-
-  if(disabledDates.length === 0) {
-    alert("현재 예약된 날짜가 없습니다. 모든 날짜를 선택할 수 있습니다.");
   }
     initCalendar(disabledDates);
 });
