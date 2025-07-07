@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>Firebase iOS 디버그</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+  <h2>📡 Firebase 디버깅 콘솔</h2>
+  <pre id="log" style="white-space: pre-wrap; background: #eee; padding: 1em;"></pre>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    const log = (msg) => {
+      const el = document.getElementById("log");
+      el.textContent += msg + '\n';
+      console.log(msg);
+    };
+
+    log("✅ 디버그 시작");
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js";
+
+    // ✅ 1. Firebase config 입력
+    const firebaseConfig = {
+        apiKey: "AIzaSyA_x42u5N0cgcL4UZg72eWHho5oi3Nx1Tw",
+        authDomain: "healing-space-22fcc.firebaseapp.com",
+        databaseURL: "https://healing-space-22fcc-default-rtdb.firebaseio.com",
+        projectId: "healing-space-22fcc",
+        storageBucket: "healing-space-22fcc.firebasestorage.app",
+        messagingSenderId: "748135616885",
+        appId: "1:748135616885:web:b35bc65e64b618ad3b033c",
+    };
+
+    log("🔧 Firebase 초기화 시도");
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // ✅ 2. WebSocket 실패 기록 제거
+    localStorage.removeItem("firebase:previous_websocket_failure");
+    log("🧹 WebSocket 실패 플래그 제거 완료");
+
+    // ✅ 3. 실시간 데이터 리스너 등록
+    const reservationsRef = ref(db, "reservations");
+
+    onValue(reservationsRef, (snapshot) => {
+      const data = snapshot.val();
+      log("📥 데이터 수신 성공!");
+      log(JSON.stringify(data, null, 2));
+    }, (error) => {
+      log("❌ 데이터 수신 실패: " + error.code);
+    });
+
+    // ✅ 4. 네트워크 복귀 시 재등록
+    window.addEventListener("online", () => {
+      localStorage.removeItem("firebase:previous_websocket_failure");
+      log("🔄 온라인 복귀 - 플래그 제거");
+    });
+  </script>
+</body>
+</html>
