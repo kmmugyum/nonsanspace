@@ -1,6 +1,3 @@
-// ✅ WebSocket 실패 플래그 제거
-localStorage.removeItem("firebase:previous_websocket_failure");
-
 import {
   getDatabase,
   ref,
@@ -20,7 +17,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// ✅ 데이터 리스너 함수 (관리자 코드와 동일하게 분리)
+// ✅ 실시간 데이터 리스너
 function setupRealtimeListener() {
   const reservationsRef = ref(db, "reservations");
 
@@ -54,14 +51,7 @@ function setupRealtimeListener() {
   });
 }
 
-// ✅ 네트워크 복귀 시 WebSocket 재시도
-window.addEventListener("online", () => {
-  console.log("🔄 온라인 복귀: WebSocket 실패 플래그 제거 후 재등록");
-  localStorage.removeItem("firebase:previous_websocket_failure");
-  setupRealtimeListener();
-});
-
-// ✅ 초기에 리스너 등록
+// ✅ 초기 리스너 등록
 setupRealtimeListener();
 
 // ✅ 예약 폼 제출 핸들링
