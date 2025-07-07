@@ -6,6 +6,12 @@ import { initCalendar } from "./initCalender.js";
 onValue(ref(db, 'reservations'), (snapshot) => {
   const reservations = snapshot.val();
   const disabledDates = [];
+
+  if (!snapshot.exists()) {
+  console.warn("예약 데이터 없음");
+  return;
+}
+
   if (reservations) {
     Object.values(reservations).forEach(reservation => {
       const checkIn = new Date(reservation.checkIn);
@@ -20,6 +26,7 @@ onValue(ref(db, 'reservations'), (snapshot) => {
       }
     });
   }
+
     initCalendar(disabledDates);
 });
 
