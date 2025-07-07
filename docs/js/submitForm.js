@@ -7,10 +7,6 @@ onValue(ref(db, 'reservations'), (snapshot) => {
   const reservations = snapshot.val();
   const disabledDates = [];
 
-  if (!reservations || Object.keys(reservations).length === 0){
-  console.warn("예약 데이터 없음");
-  return;
-}
 
   if (reservations) {
     Object.values(reservations).forEach(reservation => {
@@ -25,6 +21,16 @@ onValue(ref(db, 'reservations'), (snapshot) => {
         disabledDates.push(new Date(date));
       }
     });
+  }
+
+  const disabledDatesElement = document.getElementById("disabled-dates");
+  if (disabledDatesElement) {
+    disabledDatesElement.innerHTML = `
+      <h3>예약 불가 날짜:</h3>
+      <ul>
+        ${disabledDatesText.map(date => `<li>${date}</li>`).join('')}
+      </ul>
+    `;
   }
 
     initCalendar(disabledDates);
