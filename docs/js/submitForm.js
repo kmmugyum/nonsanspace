@@ -1,19 +1,30 @@
-// ✅ WebSocket 재연결 초기화: Safari에서 실패 플래그 제거
+// ✅ WebSocket 실패 플래그 제거
 localStorage.removeItem("firebase:previous_websocket_failure");
 
-// ✅ 네트워크 복구 시에도 다시 제거 + 리스너 재등록
-window.addEventListener("online", () => {
-  console.log("🔄 온라인 복귀 - WebSocket 실패 플래그 제거 및 리스너 재설정");
-  localStorage.removeItem("firebase:previous_websocket_failure");
-  setupRealtimeListener();
-});
-
-import { db } from "./firebaseConfig.js";
-import { ref, push, onValue } from "https://www.gstatic.com/firebasejs/11.0.0/firebase-database.js";
+import {
+  getDatabase,
+  ref,
+  onValue,
+  push
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
 import { initCalendar } from "./initCalender.js";
 
+// ✅ Firebase 초기화
+const firebaseConfig = {
+  apiKey: "AIzaSyA_x42u5N0cgcL4UZg72eWHho5oi3Nx1Tw",
+  authDomain: "healing-space-22fcc.firebaseapp.com",
+  databaseURL: "https://healing-space-22fcc-default-rtdb.firebaseio.com",
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+// ✅ 데이터 리스너 함수 (관리자 코드와 동일하게 분리)
 function setupRealtimeListener() {
-  onValue(ref(db, "reservations"), (snapshot) => {
+  const reservationsRef = ref(db, "reservations");
+
+  onValue(reservationsRef, (snapshot) => {
     const reservations = snapshot.val();
     const disabledDates = [];
 
@@ -32,16 +43,28 @@ function setupRealtimeListener() {
       });
     }
 
-    if(disabledDates.length === 0) {
-      alert("현재 예약된 날짜가 없습니다. 모든 날짜를 선택할 수 있습니다.");
+    if (disabledDates.length === 0) {
+      alert("현재 예약된 날짜가 없습니다.");
     }
+
     initCalendar(disabledDates);
+  }, (error) => {
+    console.error("❌ 데이터 수신 실패:", error);
+    alert("예약 데이터를 불러올 수 없습니다.");
   });
 }
 
-// ✅ 초기에 한 번만 실행
+// ✅ 네트워크 복귀 시 WebSocket 재시도
+window.addEventListener("online", () => {
+  console.log("🔄 온라인 복귀: WebSocket 실패 플래그 제거 후 재등록");
+  localStorage.removeItem("firebase:previous_websocket_failure");
+  setupRealtimeListener();
+});
+
+// ✅ 초기에 리스너 등록
 setupRealtimeListener();
 
+// ✅ 예약 폼 제출 핸들링
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("booking-form");
 
