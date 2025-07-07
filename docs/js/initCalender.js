@@ -24,6 +24,12 @@ export function initCalendar(disabledDates) {
       document.getElementById("selected-range").value = dateStr;
 
       if (checkIn && checkOut) {
+
+        document.getElementById("selected-range").value =
+        flatpickr.formatDate(checkIn, "Y-m-d") +
+        "~ " +
+        flatpickr.formatDate(checkOut, "Y-m-d");
+
         const nights = (checkOut - checkIn) / (1000 * 60 * 60 * 24);
         nightsInfo.textContent = `${nights}박 ${nights + 1}일`;
       } else {
